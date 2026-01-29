@@ -445,6 +445,10 @@ function initTracker() {
     }
     
     updateStats();
+    
+    if (typeof Router !== 'undefined' && Router.updateRouterPadding) {
+        setTimeout(() => Router.updateRouterPadding(), 100);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

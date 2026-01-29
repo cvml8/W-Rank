@@ -22,6 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    padding-top: 0;
 }
 
 body:not(.has-page-container) #app {
@@ -48,9 +49,18 @@ body.has-page-container #app {
 
 #router-view {
     flex: 1;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    will-change: transform, opacity;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#router-view:not(.page-container) {
+    overflow: hidden;
 }
 
 #router-view.page-container {
@@ -61,6 +71,69 @@ body.has-page-container #app {
     height: auto;
     overflow-y: auto;
     overflow-x: hidden;
+    padding-top: 0;
+}
+
+#router-view.slide-out-left {
+    animation: slideOutLeft 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+
+#router-view.slide-out-right {
+    animation: slideOutRight 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+
+#router-view.slide-in-left {
+    animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+#router-view.slide-in-right {
+    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 body.has-page-container {
@@ -68,9 +141,17 @@ body.has-page-container {
 }
 
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     padding: 20px 24px;
     border-bottom: 1px solid #e5e5e5;
     background: #ffffff;
+    transition: none;
+    will-change: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .header-top {
@@ -98,10 +179,22 @@ h1 {
     align-items: center;
     gap: 24px;
     flex-wrap: wrap;
+    max-height: 200px;
+    opacity: 1;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
 .header-info:empty {
-    display: none;
+    max-height: 0 !important;
+    opacity: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .info-item {
@@ -241,11 +334,13 @@ h1 {
 
 .table-wrapper {
     flex: 1;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     gap: 0;
     background: #e5e5e5;
     padding: 0;
+    -webkit-overflow-scrolling: touch;
 }
 
 .table-wrapper > table:not(:last-child) {
@@ -269,7 +364,7 @@ thead {
     background: #fafafa;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 10;
 }
 
 th {
@@ -413,6 +508,7 @@ body.dark-theme {
 body.dark-theme .header {
     background: #0a0a0a;
     border-bottom-color: #1a1a1a;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 body.dark-theme h1 {
@@ -559,6 +655,11 @@ body.dark-theme td:last-child small {
         height: auto;
         min-height: 100vh;
         overflow: visible;
+    }
+
+    #router-view {
+        overflow-y: auto !important;
+        overflow-x: hidden;
     }
 
     .header {

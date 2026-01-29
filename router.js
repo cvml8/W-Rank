@@ -1,5 +1,8 @@
 const Router = {
-    currentRoute: '/',
+    currentRoute: null,
+    previousRoute: null,
+    isInitialized: false,
+    routeOrder: ['/', '/builds', '/about'],
     routes: {
         '/': 'tracker',
         '/builds': 'builds',
@@ -7,7 +10,10 @@ const Router = {
     },
     
     init() {
+        this.updateRouterPadding();
+        window.addEventListener('resize', () => this.updateRouterPadding());
         this.handleRoute();
+        this.isInitialized = true;
         window.addEventListener('hashchange', () => this.handleRoute());
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a[data-route]');
@@ -17,6 +23,20 @@ const Router = {
                 this.navigate(route);
             }
         });
+    },
+    
+    updateRouterPadding() {
+        const header = document.querySelector('.header');
+        const routerView = document.getElementById('router-view');
+        if (header && routerView) {
+            const headerHeight = header.offsetHeight;
+            routerView.style.paddingTop = `${headerHeight}px`;
+            
+            const thead = document.querySelector('thead');
+            if (thead) {
+                thead.style.top = `${headerHeight}px`;
+            }
+        }
     },
     
     navigate(route) {
@@ -31,11 +51,28 @@ const Router = {
     
     handleRoute() {
         const route = this.getRoute();
+        
+        if (route === this.currentRoute && this.isInitialized) {
+            return;
+        }
+        
+        this.previousRoute = this.currentRoute;
         this.currentRoute = route;
         this.updateActiveLink();
         
         const viewName = this.routes[route] || 'tracker';
         this.renderView(viewName);
+    },
+    
+    getSlideDirection() {
+        const currentIndex = this.routeOrder.indexOf(this.currentRoute);
+        const previousIndex = this.routeOrder.indexOf(this.previousRoute);
+        
+        if (currentIndex === -1 || previousIndex === -1) {
+            return 'right';
+        }
+        
+        return currentIndex > previousIndex ? 'left' : 'right';
     },
     
     updateActiveLink() {
@@ -51,29 +88,75 @@ const Router = {
         const routerView = document.getElementById('router-view');
         if (!routerView) return;
         
-        routerView.innerHTML = '';
+        const headerInfo = document.getElementById('header-info');
+        const needsHeaderInfo = viewName === 'tracker';
+        const hasHeaderInfo = headerInfo && headerInfo.innerHTML.trim() !== '';
         
-        if (viewName === 'tracker') {
-            document.body.classList.remove('has-page-container');
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.classList.add('has-page-container');
-            document.body.style.overflow = 'auto';
+        if (hasHeaderInfo && !needsHeaderInfo) {
+            headerInfo.style.maxHeight = '0';
+            headerInfo.style.opacity = '0';
+            headerInfo.style.padding = '0';
+            headerInfo.style.margin = '0';
         }
         
-        switch(viewName) {
-            case 'tracker':
-                this.renderTracker();
-                break;
-            case 'builds':
-                this.renderBuilds();
-                break;
-            case 'about':
-                this.renderAbout();
-                break;
-        }
+        const slideDirection = this.getSlideDirection();
+        const slideOutClass = slideDirection === 'left' ? 'slide-out-left' : 'slide-out-right';
         
-        document.title = this.getPageTitle(viewName);
+        routerView.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
+        routerView.classList.add(slideOutClass);
+        
+        setTimeout(() => {
+            if (headerInfo && !needsHeaderInfo) {
+                headerInfo.innerHTML = '';
+            }
+            
+            routerView.innerHTML = '';
+            
+            if (viewName === 'tracker') {
+                document.body.classList.remove('has-page-container');
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.classList.add('has-page-container');
+                document.body.style.overflow = 'auto';
+            }
+            
+            switch(viewName) {
+                case 'tracker':
+                    this.renderTracker();
+                    break;
+                case 'builds':
+                    this.renderBuilds();
+                    break;
+                case 'about':
+                    this.renderAbout();
+                    break;
+            }
+            
+            if (headerInfo && needsHeaderInfo && !hasHeaderInfo) {
+                headerInfo.style.maxHeight = '0';
+                headerInfo.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        headerInfo.style.maxHeight = '';
+                        headerInfo.style.opacity = '';
+                        headerInfo.style.padding = '';
+                        headerInfo.style.margin = '';
+                    });
+                });
+            }
+            
+            this.updateRouterPadding();
+            
+            const slideInClass = slideDirection === 'left' ? 'slide-in-left' : 'slide-in-right';
+            routerView.classList.remove(slideOutClass);
+            routerView.classList.add(slideInClass);
+            
+            setTimeout(() => {
+                routerView.classList.remove('slide-in-left', 'slide-in-right');
+            }, 300);
+            
+            document.title = this.getPageTitle(viewName);
+        }, 100);
     },
     
     getPageTitle(viewName) {
@@ -438,7 +521,7 @@ const Router = {
             <main class="main-content">
                 <div class="page-header">
                     <h2 class="page-title">Builds</h2>
-                    <p class="page-subtitle">Comparte y explora builds de Deepwoken</p>
+                    <p class="page-subtitle">Recommended builds for W Rank obtainment</p>
                 </div>
             </main>
         `;

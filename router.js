@@ -53,6 +53,14 @@ const Router = {
         
         routerView.innerHTML = '';
         
+        if (viewName === 'tracker') {
+            document.body.classList.remove('has-page-container');
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.classList.add('has-page-container');
+            document.body.style.overflow = 'auto';
+        }
+        
         switch(viewName) {
             case 'tracker':
                 this.renderTracker();

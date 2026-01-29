@@ -410,27 +410,48 @@ function reorganizeTable() {
     updateStats();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initTracker() {
     const savedName = localStorage.getItem(CHARACTER_NAME_KEY);
     if (savedName) {
-        document.getElementById('character-name').value = savedName;
+        const nameInput = document.getElementById('character-name');
+        if (nameInput) {
+            nameInput.value = savedName;
+        }
     }
     
+    loadState();
     loadAttempts();
-    
-    loadTheme();
     
     reorganizeTable();
     
     const characterNameInput = document.getElementById('character-name');
-    characterNameInput.addEventListener('input', saveState);
+    if (characterNameInput) {
+        characterNameInput.addEventListener('input', saveState);
+    }
     
-    document.getElementById('reset-btn').addEventListener('click', resetAll);
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetAll);
+    }
     
-    document.getElementById('increase-attempts').addEventListener('click', increaseAttempts);
-    document.getElementById('decrease-attempts').addEventListener('click', decreaseAttempts);
+    const increaseBtn = document.getElementById('increase-attempts');
+    if (increaseBtn) {
+        increaseBtn.addEventListener('click', increaseAttempts);
+    }
     
-    document.getElementById('theme-switch').addEventListener('change', toggleTheme);
+    const decreaseBtn = document.getElementById('decrease-attempts');
+    if (decreaseBtn) {
+        decreaseBtn.addEventListener('click', decreaseAttempts);
+    }
     
     updateStats();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadTheme();
+    
+    const themeSwitch = document.getElementById('theme-switch');
+    if (themeSwitch) {
+        themeSwitch.addEventListener('change', toggleTheme);
+    }
 });

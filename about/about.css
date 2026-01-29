@@ -1,0 +1,14 @@
+.content-section {
+    margin-top: 32px;
+}
+
+.content-placeholder {
+    padding: 60px 20px;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}
+
+body.dark-theme .content-placeholder {
+    color: #666;
+}

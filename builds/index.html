@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>W Rank</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Builds - W Rank</title>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <div id="app">
+    <div class="container page-container">
         <header class="header">
             <div class="header-top">
-                <h1><a href="#/" data-route="/">W Rank</a></h1>
+                <h1><a href="../">W Rank</a></h1>
                 <div class="header-actions">
                     <nav class="nav-links">
-                        <a href="#/" data-route="/" class="nav-link">Tracker</a>
-                        <a href="#/builds" data-route="/builds" class="nav-link">Builds</a>
-                        <a href="#/about" data-route="/about" class="nav-link">About</a>
+                        <a href="../">Tracker</a>
+                        <a href="./" class="active">Builds</a>
+                        <a href="../about/">About</a>
                     </nav>
                     <div class="theme-toggle">
                         <span class="theme-label" id="theme-label">Light</span>
@@ -24,13 +24,16 @@
                     </div>
                 </div>
             </div>
-            <div class="header-info" id="header-info"></div>
         </header>
-        <div id="router-view"></div>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h2 class="page-title">Builds</h2>
+                <p class="page-subtitle">Comparte y explora builds de Deepwoken</p>
+            </div>
+        </main>
     </div>
 
-    <script src="router.js"></script>
-    <script src="script.js"></script>
-    <script src="common.js"></script>
+    <script src="../common.js"></script>
 </body>
 </html>

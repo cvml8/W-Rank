@@ -501,25 +501,147 @@ body.dark-theme td:last-child small {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        overflow: auto;
+    }
+
+    body {
+        overflow-y: auto;
+    }
+
+    .container {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
     .header {
-        padding: 16px;
+        padding: 12px 16px;
+    }
+
+    .header-top {
+        margin-bottom: 12px;
     }
 
     .header-info {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 12px;
     }
 
     .info-item {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .character-input {
+        width: auto;
         flex: 1;
-        min-width: 100px;
+        max-width: 200px;
+    }
+
+    .btn-reset {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 4px;
     }
 
     h1 {
         font-size: 20px;
     }
 
+    .table-wrapper {
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    .table-wrapper > table {
+        width: 100%;
+        flex: none;
+    }
+
+    .table-wrapper > table:not(:last-child) {
+        border-right: none;
+        border-bottom: 2px solid #e5e5e5;
+    }
+
+    table.defeat-table {
+        border-left: none;
+        border-top: 2px solid #ff4444;
+    }
+
     th, td {
-        padding: 8px 12px;
+        padding: 10px 12px;
         font-size: 12px;
+    }
+
+    .table-progress-checkbox-cell {
+        width: 35px;
+        padding: 10px 6px;
+    }
+
+    td[data-row-id] {
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 12px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .info-label {
+        font-size: 11px;
+    }
+
+    .info-value {
+        font-size: 13px;
+    }
+
+    .character-input {
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .table-progress-checkbox-cell {
+        width: 30px;
+        padding: 8px 4px;
+    }
+
+    td[data-row-id] {
+        width: 45px;
+        font-size: 12px;
+    }
+
+    .wds-checkbox {
+        width: 16px;
+        height: 16px;
+    }
+
+    .wds-checkbox label {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+body.dark-theme .table-wrapper > table:not(:last-child) {
+    border-bottom-color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+    body.dark-theme .table-wrapper > table:not(:last-child) {
+        border-bottom-color: #1a1a1a;
+    }
+
+    body.dark-theme table.defeat-table {
+        border-top-color: #ff6666;
     }
 }

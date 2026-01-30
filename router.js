@@ -610,7 +610,7 @@ const Router = {
                             <div class="credit-icon credit-icon-discord">
                                 <img data-platform="discord" alt="Discord" />
                             </div>
-                            <span class="credit-text">cyx._</span>
+                            <span class="credit-text">Discord</span>
                         </div>
                         <div class="credit-item" data-link="https://www.roblox.com/users/500049524/profile">
                             <div class="credit-icon credit-icon-roblox">
@@ -646,7 +646,7 @@ const Router = {
                 if (copyText) {
                     navigator.clipboard.writeText(copyText).then(() => {
                         const originalText = item.querySelector('.credit-text').textContent;
-                        item.querySelector('.credit-text').textContent = '¡Copiado!';
+                        item.querySelector('.credit-text').textContent = 'Copied!';
                         setTimeout(() => {
                             item.querySelector('.credit-text').textContent = originalText;
                         }, 1000);
@@ -659,7 +659,7 @@ const Router = {
                         document.body.removeChild(textArea);
                         
                         const originalText = item.querySelector('.credit-text').textContent;
-                        item.querySelector('.credit-text').textContent = '¡Copiado!';
+                        item.querySelector('.credit-text').textContent = 'Copied!';
                         setTimeout(() => {
                             item.querySelector('.credit-text').textContent = originalText;
                         }, 1000);

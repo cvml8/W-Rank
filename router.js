@@ -30,12 +30,14 @@ const Router = {
         const routerView = document.getElementById('router-view');
         if (header && routerView) {
             const headerHeight = header.offsetHeight;
-            routerView.style.paddingTop = `${headerHeight}px`;
-            
-            const allTheads = document.querySelectorAll('thead');
-            allTheads.forEach(thead => {
-                thead.style.top = `${headerHeight}px`;
-            });
+            if (routerView.classList.contains('page-container')) {
+                routerView.style.paddingTop = `${headerHeight}px`;
+            } else {
+                routerView.style.top = `${headerHeight}px`;
+                routerView.style.height = `calc(100vh - ${headerHeight}px)`;
+                routerView.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+                routerView.style.bottom = '0';
+            }
         }
     },
     
@@ -210,7 +212,7 @@ const Router = {
         
         routerView.innerHTML = `
             <div class="table-wrapper">
-                <table id="echo-tasks" class="table-progress-tracking sortable">
+                <table class="table-progress-tracking sortable">
                     <thead>
                         <tr>
                             <th class="table-progress-tracking-header headerSort" rowspan="1" tabindex="0" role="columnheader button" title="Ordenar ascendente">
@@ -335,6 +337,24 @@ const Router = {
                             <td data-row-id="unbound-attribute" style="text-align:center;">5</td>
                             <td>Unbound an Attribute.</td>
                         </tr>
+                    </tbody>
+                </table>
+                
+                <table class="table-progress-tracking sortable">
+                    <thead>
+                        <tr>
+                            <th class="table-progress-tracking-header headerSort">
+                                <div class="header_icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="currentColor">
+                                        <path d="M9.95044 0C14.921 0 18.9504 4.02944 18.9504 9C18.9504 13.9706 14.921 18 9.95044 18C4.97988 18 0.950439 13.9706 0.950439 9C0.950439 4.02944 4.97988 0 9.95044 0ZM9.95044 2C6.08445 2 2.95044 5.13401 2.95044 9C2.95044 12.866 6.08445 16 9.95044 16C13.8164 16 16.9504 12.866 16.9504 9C16.9504 5.13401 13.8164 2 9.95044 2ZM12.2434 6.29297C12.6343 5.90205 13.2665 5.90222 13.6575 6.29297C14.0485 6.68397 14.0485 7.31603 13.6575 7.70703L9.65747 11.707C9.46247 11.902 9.20644 12 8.95044 12C8.69452 11.9999 8.43834 11.902 8.24341 11.707L6.24341 9.70703C5.85266 9.31601 5.85249 8.68389 6.24341 8.29297C6.63433 7.90205 7.26645 7.90222 7.65747 8.29297L8.95044 9.58594L12.2434 6.29297Z"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th class="unsortable">Echo Reward</th>
+                            <th class="unsortable">Triumphs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td class="table-progress-checkbox-cell" data-sort-value="0">
                                 <div class="wds-checkbox checkbox_wrapper">
@@ -378,16 +398,6 @@ const Router = {
                         <tr>
                             <td class="table-progress-checkbox-cell" data-sort-value="0">
                                 <div class="wds-checkbox checkbox_wrapper">
-                                    <input type="checkbox" id="checkbox-15" data-row-id="world-event">
-                                    <label for="checkbox-15"></label>
-                                </div>
-                            </td>
-                            <td data-row-id="world-event" style="text-align:center;">5</td>
-                            <td>Clear a World Event.<br><small>Defeat Interluminary Parasol OR The Doom of Caeranthil OR complete the Carnival of Hearts.</small></td>
-                        </tr>
-                        <tr>
-                            <td class="table-progress-checkbox-cell" data-sort-value="0">
-                                <div class="wds-checkbox checkbox_wrapper">
                                     <input type="checkbox" id="checkbox-16" data-row-id="pluripotent-alloy">
                                     <label for="checkbox-16"></label>
                                 </div>
@@ -404,6 +414,74 @@ const Router = {
                             </td>
                             <td data-row-id="murmur" style="text-align:center;">5</td>
                             <td>Obtain a Murmur.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-progress-checkbox-cell" data-sort-value="0">
+                                <div class="wds-checkbox checkbox_wrapper">
+                                    <input type="checkbox" id="checkbox-24" data-row-id="hell-mode">
+                                    <label for="checkbox-24"></label>
+                                </div>
+                            </td>
+                            <td data-row-id="hell-mode" style="text-align:center;">10</td>
+                            <td>Complete Hell Mode.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-progress-checkbox-cell" data-sort-value="0">
+                                <div class="wds-checkbox checkbox_wrapper">
+                                    <input type="checkbox" id="checkbox-25" data-row-id="layer2-no-hook">
+                                    <label for="checkbox-25"></label>
+                                </div>
+                            </td>
+                            <td data-row-id="layer2-no-hook" style="text-align:center;">10</td>
+                            <td>Complete Layer 2 floor 1 without a Light Hook.<br><small>You will need to leave through Chaser's escape portal for this to count.</small></td>
+                        </tr>
+                        <tr>
+                            <td class="table-progress-checkbox-cell" data-sort-value="0">
+                                <div class="wds-checkbox checkbox_wrapper">
+                                    <input type="checkbox" id="checkbox-26" data-row-id="power-level">
+                                    <label for="checkbox-26"></label>
+                                </div>
+                            </td>
+                            <td data-row-id="power-level" style="text-align:center;">15</td>
+                            <td>Power up.<br><small>Every Power level up will award you with 0.75 Echoes, totaling to 15 Echoes at Power 20</small></td>
+                        </tr>
+                        <tr>
+                            <td class="table-progress-checkbox-cell" data-sort-value="0">
+                                <div class="wds-checkbox checkbox_wrapper">
+                                    <input type="checkbox" id="checkbox-27" data-row-id="resonance">
+                                    <label for="checkbox-27"></label>
+                                </div>
+                            </td>
+                            <td data-row-id="resonance" style="text-align:center;">15</td>
+                            <td>Obtain a Resonance.<br><small>You must CHOOSE it. If you reroll in Fragments of Self, it resets the task, even if you had one before.</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table class="table-progress-tracking sortable defeat-table">
+                    <thead>
+                        <tr>
+                            <th class="table-progress-tracking-header headerSort">
+                                <div class="header_icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="currentColor">
+                                        <path d="M9.95044 0C14.921 0 18.9504 4.02944 18.9504 9C18.9504 13.9706 14.921 18 9.95044 18C4.97988 18 0.950439 13.9706 0.950439 9C0.950439 4.02944 4.97988 0 9.95044 0ZM9.95044 2C6.08445 2 2.95044 5.13401 2.95044 9C2.95044 12.866 6.08445 16 9.95044 16C13.8164 16 16.9504 12.866 16.9504 9C16.9504 5.13401 13.8164 2 9.95044 2ZM12.2434 6.29297C12.6343 5.90205 13.2665 5.90222 13.6575 6.29297C14.0485 6.68397 14.0485 7.31603 13.6575 7.70703L9.65747 11.707C9.46247 11.902 9.20644 12 8.95044 12C8.69452 11.9999 8.43834 11.902 8.24341 11.707L6.24341 9.70703C5.85266 9.31601 5.85249 8.68389 6.24341 8.29297C6.63433 7.90205 7.26645 7.90222 7.65747 8.29297L8.95044 9.58594L12.2434 6.29297Z"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th class="unsortable">Echo Reward</th>
+                            <th class="unsortable">Triumphs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-progress-checkbox-cell" data-sort-value="0">
+                                <div class="wds-checkbox checkbox_wrapper">
+                                    <input type="checkbox" id="checkbox-15" data-row-id="world-event">
+                                    <label for="checkbox-15"></label>
+                                </div>
+                            </td>
+                            <td data-row-id="world-event" style="text-align:center;">5</td>
+                            <td>Clear a World Event.<br><small>Defeat Interluminary Parasol OR The Doom of Caeranthil OR complete the Carnival of Hearts.</small></td>
                         </tr>
                         <tr>
                             <td class="table-progress-checkbox-cell" data-sort-value="0">
@@ -465,46 +543,6 @@ const Router = {
                             <td data-row-id="scion" style="text-align:center;">10</td>
                             <td>Defeat the Scion of Ethiron.</td>
                         </tr>
-                        <tr>
-                            <td class="table-progress-checkbox-cell" data-sort-value="0">
-                                <div class="wds-checkbox checkbox_wrapper">
-                                    <input type="checkbox" id="checkbox-24" data-row-id="hell-mode">
-                                    <label for="checkbox-24"></label>
-                                </div>
-                            </td>
-                            <td data-row-id="hell-mode" style="text-align:center;">10</td>
-                            <td>Complete Hell Mode.</td>
-                        </tr>
-                        <tr>
-                            <td class="table-progress-checkbox-cell" data-sort-value="0">
-                                <div class="wds-checkbox checkbox_wrapper">
-                                    <input type="checkbox" id="checkbox-25" data-row-id="layer2-no-hook">
-                                    <label for="checkbox-25"></label>
-                                </div>
-                            </td>
-                            <td data-row-id="layer2-no-hook" style="text-align:center;">10</td>
-                            <td>Complete Layer 2 floor 1 without a Light Hook.<br><small>You will need to leave through Chaser's escape portal for this to count.</small></td>
-                        </tr>
-                        <tr>
-                            <td class="table-progress-checkbox-cell" data-sort-value="0">
-                                <div class="wds-checkbox checkbox_wrapper">
-                                    <input type="checkbox" id="checkbox-26" data-row-id="power-level">
-                                    <label for="checkbox-26"></label>
-                                </div>
-                            </td>
-                            <td data-row-id="power-level" style="text-align:center;">15</td>
-                            <td>Power up.<br><small>Every Power level up will award you with 0.75 Echoes, totaling to 15 Echoes at Power 20</small></td>
-                        </tr>
-                        <tr>
-                            <td class="table-progress-checkbox-cell" data-sort-value="0">
-                                <div class="wds-checkbox checkbox_wrapper">
-                                    <input type="checkbox" id="checkbox-27" data-row-id="resonance">
-                                    <label for="checkbox-27"></label>
-                                </div>
-                            </td>
-                            <td data-row-id="resonance" style="text-align:center;">15</td>
-                            <td>Obtain a Resonance.<br><small>You must CHOOSE it. If you reroll in Fragments of Self, it resets the task, even if you had one before.</small></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -552,29 +590,81 @@ const Router = {
                 </div>
                 <div class="content-section">
                     <div class="credits-list">
-                        <div class="credit-item">
-                            <div class="credit-icon">
-                                <img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord" />
+                        <div class="credit-item" data-copy="cyx._">
+                            <div class="credit-icon credit-icon-discord">
+                                <img data-platform="discord" alt="Discord" />
                             </div>
                             <span class="credit-text">cyx._</span>
                         </div>
-                        <div class="credit-item">
-                            <div class="credit-icon">
-                                <img src="https://cdn.simpleicons.org/roblox/00D2FF" alt="Roblox" />
-                                
+                        <div class="credit-item" data-link="https://www.roblox.com/users/123456789/profile">
+                            <div class="credit-icon credit-icon-roblox">
+                                <img data-platform="roblox" alt="Roblox" />
                             </div>
                             <span class="credit-text">cvml8</span>
-                        </div>
-                        <div class="credit-item">
-                            <div class="credit-icon">
-                                <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" />
-                            </div>
-                            <span class="credit-text">TuUsuarioGitHub</span>
                         </div>
                     </div>
                 </div>
             </main>
         `;
+        
+        this.initAboutCredits();
+    },
+    
+    initAboutCredits() {
+        this.updateCreditIcons();
+        
+        const creditItems = document.querySelectorAll('.credit-item');
+        creditItems.forEach(item => {
+            item.style.cursor = 'pointer';
+            
+            item.addEventListener('click', () => {
+                const copyText = item.getAttribute('data-copy');
+                const linkUrl = item.getAttribute('data-link');
+                
+                if (copyText) {
+                    navigator.clipboard.writeText(copyText).then(() => {
+                        const originalText = item.querySelector('.credit-text').textContent;
+                        item.querySelector('.credit-text').textContent = '¡Copiado!';
+                        setTimeout(() => {
+                            item.querySelector('.credit-text').textContent = originalText;
+                        }, 1000);
+                    }).catch(() => {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = copyText;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        
+                        const originalText = item.querySelector('.credit-text').textContent;
+                        item.querySelector('.credit-text').textContent = '¡Copiado!';
+                        setTimeout(() => {
+                            item.querySelector('.credit-text').textContent = originalText;
+                        }, 1000);
+                    });
+                } else if (linkUrl) {
+                    window.open(linkUrl, '_blank');
+                }
+            });
+        });
+        
+        const themeSwitch = document.getElementById('theme-switch');
+        if (themeSwitch) {
+            themeSwitch.addEventListener('change', () => {
+                setTimeout(() => this.updateCreditIcons(), 50);
+            });
+        }
+    },
+    
+    updateCreditIcons() {
+        const isDark = document.body.classList.contains('dark-theme');
+        const color = isDark ? 'e0e0e0' : '1a1a1a';
+        
+        const icons = document.querySelectorAll('.credit-icon img[data-platform]');
+        icons.forEach(img => {
+            const platform = img.getAttribute('data-platform');
+            img.src = `https://cdn.simpleicons.org/${platform}/${color}`;
+        });
     }
 };
 

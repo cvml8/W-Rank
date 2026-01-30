@@ -22,12 +22,16 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    height: 100vh;
     padding-top: 0;
+    position: relative;
 }
 
 body:not(.has-page-container) #app {
     height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 body.has-page-container {
@@ -57,10 +61,21 @@ body.has-page-container #app {
     will-change: transform, opacity;
     overflow-y: auto;
     overflow-x: hidden;
+    width: 100%;
 }
 
 #router-view:not(.page-container) {
     overflow: hidden;
+    max-width: none;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 #router-view.page-container {
@@ -333,7 +348,7 @@ h1 {
 }
 
 .table-wrapper {
-    flex: 1;
+    flex: 1 1 auto;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
@@ -341,6 +356,10 @@ h1 {
     background: #e5e5e5;
     padding: 0;
     -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
 }
 
 .table-wrapper > table:not(:last-child) {
@@ -349,13 +368,13 @@ h1 {
 
 table {
     flex: 1;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     background: #ffffff;
     border: none;
-    overflow: hidden;
     display: table;
     position: relative;
-    isolation: isolate;
+    height: fit-content;
 }
 
 table.defeat-table {
@@ -368,6 +387,15 @@ thead {
     top: 0;
     z-index: 100;
     display: table-header-group;
+}
+
+thead tr {
+    display: table-row;
+}
+
+thead th {
+    position: relative;
+    z-index: 100;
 }
 
 th {
@@ -663,6 +691,18 @@ body.dark-theme td:last-child small {
     #router-view {
         overflow-y: auto !important;
         overflow-x: hidden;
+        height: auto !important;
+        min-height: calc(100vh - var(--header-height, 80px)) !important;
+    }
+    
+    #router-view:not(.page-container) {
+        height: auto !important;
+        min-height: calc(100vh - var(--header-height, 80px)) !important;
+    }
+    
+    .table-wrapper {
+        min-height: auto;
+        height: auto;
     }
 
     .header {
@@ -900,6 +940,7 @@ h1 a:hover {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: opacity 0.2s;
 }
 
 .credit-text {
@@ -1287,9 +1328,6 @@ body.dark-theme .credit-item:hover {
     background: #1a1a1a;
 }
 
-body.dark-theme .credit-icon {
-    color: #e0e0e0;
-}
 
 body.dark-theme .credit-text {
     color: #e0e0e0;

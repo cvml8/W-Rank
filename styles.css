@@ -75,62 +75,62 @@ body.has-page-container #app {
 }
 
 #router-view.slide-out-left {
-    animation: slideOutLeft 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideOutLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
     pointer-events: none;
 }
 
 #router-view.slide-out-right {
-    animation: slideOutRight 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
     pointer-events: none;
 }
 
 #router-view.slide-in-left {
-    animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideInLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
 #router-view.slide-in-right {
-    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideInRight 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
 @keyframes slideOutLeft {
-    from {
+    0% {
         transform: translateX(0);
         opacity: 1;
     }
-    to {
+    100% {
         transform: translateX(-30px);
         opacity: 0;
     }
 }
 
 @keyframes slideOutRight {
-    from {
+    0% {
         transform: translateX(0);
         opacity: 1;
     }
-    to {
+    100% {
         transform: translateX(30px);
         opacity: 0;
     }
 }
 
 @keyframes slideInLeft {
-    from {
+    0% {
         transform: translateX(30px);
         opacity: 0;
     }
-    to {
+    100% {
         transform: translateX(0);
         opacity: 1;
     }
 }
 
 @keyframes slideInRight {
-    from {
+    0% {
         transform: translateX(-30px);
         opacity: 0;
     }
-    to {
+    100% {
         transform: translateX(0);
         opacity: 1;
     }
@@ -862,6 +862,49 @@ h1 a:hover {
     font-size: 16px;
 }
 
+.credits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.credit-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.credit-item:hover {
+    border-color: #1a1a1a;
+    background: #f5f5f5;
+}
+
+.credit-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #1a1a1a;
+}
+
+.credit-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.credit-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
 .builds-controls {
     display: flex;
     justify-content: space-between;
@@ -1229,6 +1272,24 @@ body.dark-theme .page-subtitle {
 
 body.dark-theme .content-placeholder {
     color: #666;
+}
+
+body.dark-theme .credit-item {
+    background: #0a0a0a;
+    border-color: #1a1a1a;
+}
+
+body.dark-theme .credit-item:hover {
+    border-color: #e0e0e0;
+    background: #1a1a1a;
+}
+
+body.dark-theme .credit-icon {
+    color: #e0e0e0;
+}
+
+body.dark-theme .credit-text {
+    color: #e0e0e0;
 }
 
 body.dark-theme .search-input,

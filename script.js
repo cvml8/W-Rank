@@ -260,9 +260,12 @@ function reorganizeTable() {
         
         const checkboxes = tableWrapper.querySelectorAll('input[type="checkbox"][data-row-id]');
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                saveState();
-            });
+            if (!checkbox.dataset.hasListener) {
+                checkbox.dataset.hasListener = 'true';
+                checkbox.addEventListener('change', function() {
+                    saveState();
+                });
+            }
         });
         
         makeRowsClickable();
@@ -286,22 +289,26 @@ function initTracker() {
     reorganizeTable();
     
     const characterNameInput = document.getElementById('character-name');
-    if (characterNameInput) {
+    if (characterNameInput && !characterNameInput.dataset.hasListener) {
+        characterNameInput.dataset.hasListener = 'true';
         characterNameInput.addEventListener('input', saveState);
     }
     
     const resetBtn = document.getElementById('reset-btn');
-    if (resetBtn) {
+    if (resetBtn && !resetBtn.dataset.hasListener) {
+        resetBtn.dataset.hasListener = 'true';
         resetBtn.addEventListener('click', resetAll);
     }
     
     const increaseBtn = document.getElementById('increase-attempts');
-    if (increaseBtn) {
+    if (increaseBtn && !increaseBtn.dataset.hasListener) {
+        increaseBtn.dataset.hasListener = 'true';
         increaseBtn.addEventListener('click', increaseAttempts);
     }
     
     const decreaseBtn = document.getElementById('decrease-attempts');
-    if (decreaseBtn) {
+    if (decreaseBtn && !decreaseBtn.dataset.hasListener) {
+        decreaseBtn.dataset.hasListener = 'true';
         decreaseBtn.addEventListener('click', decreaseAttempts);
     }
     

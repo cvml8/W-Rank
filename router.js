@@ -32,7 +32,12 @@ const Router = {
             const headerHeight = header.offsetHeight;
             if (routerView.classList.contains('page-container')) {
                 routerView.style.paddingTop = `${headerHeight}px`;
+                routerView.style.top = '';
+                routerView.style.height = '';
+                routerView.style.minHeight = '';
+                routerView.style.bottom = '';
             } else {
+                routerView.style.paddingTop = '';
                 routerView.style.top = `${headerHeight}px`;
                 routerView.style.height = `calc(100vh - ${headerHeight}px)`;
                 routerView.style.minHeight = `calc(100vh - ${headerHeight}px)`;
@@ -95,8 +100,11 @@ const Router = {
         const hasHeaderInfo = headerInfo && headerInfo.innerHTML.trim() !== '';
         
         if (hasHeaderInfo && !needsHeaderInfo) {
-            headerInfo.style.maxHeight = '0';
+            headerInfo.style.maxHeight = '40px';
+            headerInfo.style.minHeight = '40px';
+            headerInfo.style.height = '40px';
             headerInfo.style.opacity = '0';
+            headerInfo.style.visibility = 'hidden';
             headerInfo.style.padding = '0';
             headerInfo.style.margin = '0';
         }
@@ -122,7 +130,7 @@ const Router = {
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.classList.add('has-page-container');
-                    document.body.style.overflow = 'auto';
+                    document.body.style.overflow = 'hidden';
                 }
                 
                 switch(viewName) {
@@ -138,12 +146,18 @@ const Router = {
                 }
                 
                 if (headerInfo && needsHeaderInfo && !hasHeaderInfo) {
-                    headerInfo.style.maxHeight = '0';
+                    headerInfo.style.maxHeight = '40px';
+                    headerInfo.style.minHeight = '40px';
+                    headerInfo.style.height = '40px';
                     headerInfo.style.opacity = '0';
+                    headerInfo.style.visibility = 'hidden';
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
                             headerInfo.style.maxHeight = '';
+                            headerInfo.style.minHeight = '';
+                            headerInfo.style.height = '';
                             headerInfo.style.opacity = '';
+                            headerInfo.style.visibility = '';
                             headerInfo.style.padding = '';
                             headerInfo.style.margin = '';
                         });
@@ -172,8 +186,8 @@ const Router = {
     getPageTitle(viewName) {
         const titles = {
             'tracker': 'W Rank',
-            'builds': 'Builds - W Rank',
-            'about': 'About - W Rank'
+            'builds': 'W Rank',
+            'about': 'W Rank'
         };
         return titles[viewName] || 'W Rank';
     },
@@ -211,7 +225,8 @@ const Router = {
         `;
         
         routerView.innerHTML = `
-            <div class="table-wrapper">
+            <div class="tracker-container">
+                <div class="table-wrapper">
                 <table class="table-progress-tracking sortable">
                     <thead>
                         <tr>
@@ -545,6 +560,7 @@ const Router = {
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         `;
         }
@@ -596,11 +612,17 @@ const Router = {
                             </div>
                             <span class="credit-text">cyx._</span>
                         </div>
-                        <div class="credit-item" data-link="https://www.roblox.com/users/123456789/profile">
+                        <div class="credit-item" data-link="https://www.roblox.com/users/500049524/profile">
                             <div class="credit-icon credit-icon-roblox">
                                 <img data-platform="roblox" alt="Roblox" />
                             </div>
-                            <span class="credit-text">cvml8</span>
+                            <span class="credit-text">Main Account</span>
+                        </div>
+                        <div class="credit-item" data-link="https://www.roblox.com/users/3808311595/profile">
+                            <div class="credit-icon credit-icon-roblox">
+                                <img data-platform="roblox" alt="Roblox" />
+                            </div>
+                            <span class="credit-text">Deepwoken Account</span>
                         </div>
                     </div>
                 </div>

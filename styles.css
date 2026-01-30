@@ -35,12 +35,13 @@ body:not(.has-page-container) #app {
 }
 
 body.has-page-container {
-    overflow: auto;
+    overflow: hidden;
 }
 
 body.has-page-container #app {
     min-height: 100vh;
-    overflow: visible;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .container {
@@ -78,15 +79,26 @@ body.has-page-container #app {
     flex-direction: column;
 }
 
+.tracker-container {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+
 #router-view.page-container {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
     min-height: calc(100vh - 80px);
-    height: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: calc(100vh - 80px);
+    overflow: hidden;
     padding-top: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #router-view.slide-out-left {
@@ -152,7 +164,7 @@ body.has-page-container #app {
 }
 
 body.has-page-container {
-    overflow: auto;
+    overflow: hidden;
 }
 
 .header {
@@ -167,6 +179,8 @@ body.has-page-container {
     transition: none;
     will-change: auto;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    height: 120px;
+    box-sizing: border-box;
 }
 
 .header-top {
@@ -174,6 +188,7 @@ body.has-page-container {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+    min-height: 32px;
 }
 
 h1 {
@@ -195,6 +210,8 @@ h1 {
     gap: 24px;
     flex-wrap: wrap;
     max-height: 200px;
+    min-height: 40px;
+    height: 40px;
     opacity: 1;
     transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -203,13 +220,17 @@ h1 {
     overflow: hidden;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 .header-info:empty {
-    max-height: 0 !important;
+    max-height: 40px !important;
+    min-height: 40px !important;
+    height: 40px !important;
     opacity: 0 !important;
     padding: 0 !important;
     margin: 0 !important;
+    visibility: hidden;
 }
 
 .info-item {
@@ -348,7 +369,7 @@ h1 {
 }
 
 .table-wrapper {
-    flex: 1 1 auto;
+    flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
@@ -358,7 +379,6 @@ h1 {
     -webkit-overflow-scrolling: touch;
     position: relative;
     width: 100%;
-    height: 100%;
     min-height: 0;
 }
 
@@ -374,7 +394,7 @@ table {
     border: none;
     display: table;
     position: relative;
-    height: fit-content;
+    width: 100%;
 }
 
 table.defeat-table {
@@ -873,7 +893,9 @@ h1 a:hover {
 .main-content {
     flex: 1;
     padding: 40px 24px;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .page-header {
